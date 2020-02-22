@@ -1,17 +1,17 @@
 bits 16
 
-; dw - byte
-; dd - 2 bytes
-; dq - 4 bytes
-; GDT contains three descriptors: Null desc., Code desc. and Data desc.
+; dw - 1 байт
+; dd - 2 байта
+; dq - 4 байта
+; В GDT три дескриптора: Нуль-дескриптор, дескриптор код и дескриптор данных.
 ; every desc. !!IS 8 BYTES LONG!!
 
-;*******************************************
+;==========================================
 ; Global Descriptor Table (GDT)
-;*******************************************
+;===========================================
 
 gdt_start:
-    dd 0                ; null descriptor--just fill 8 bytes
+    dd 0                ; Заполняем нулями нуль-дескриптор
     dd 0
 
 gdt_code:
@@ -32,5 +32,5 @@ gdt_data:
 end_of_gdt:
 
 gdtr:
-    dw end_of_gdt - gdt_start - 1   ; limit (Size of GDT)
-    dd gdt_start        ; base of GDT
+    dw end_of_gdt - gdt_start - 1   ; лимит (размер GDT)
+    dd gdt_start
