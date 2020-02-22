@@ -1,25 +1,3 @@
-/*
-
-1. Структура с данными CPUID                НЕТ
-2. malloc()                                 НЕТ
-3. Прерывания APIC                          НЕТ
-4. Обработчики исключений                   ДА
-5. PCI                                      НЕТ
-6. Таймер (в APIC есть свой PIT)			НЕТ
-7. Дебаг									ДА
-8. printf с переменным числом параметров    ДА
-
-*/
-// PIT CPUID
-/* 
-			САМОЕ ВАЖНОЕ! 
-	1. Having a working and reliable interrupt/exception handling system that can dump the contents of 
-		the registers (and perhaps the address of the fault).
-	2. Plan your memory map (virtual, and physical): decide where you want the data to be.
-	3. The heap: allocating memory at runtime (malloc and free). 
-*/
-
-
 #include "../include/command_line.h"
 #include "../include/kapi.h"
 #include "../include/string.h"
@@ -44,9 +22,7 @@ void kmain() {
     initExceptions();
     IDT_init();
 
-    debugInfo();
-
-   	for (;;) {}
+	for (;;) {}
 }
 
 
