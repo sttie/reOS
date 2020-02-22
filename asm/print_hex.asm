@@ -1,38 +1,37 @@
-; prints dx's hex value (2 bytes)
+; печатает значение регистра dx в хекс (2 байта)
 print_hex_dx:
     pusha
     mov cx, 4
-    mov si, HEX_OUT+2    ; the pointer to the end of HEX_OUT
-
-    ; after this the print_letter is executed
+    mov si, HEX_OUT+2    ; указатель на конец HEX_OUT
 
 print_letter:
-    cmp cx, 0            ; if cx is 0
-    je print_hex_dx_done ; then printing is done
+    cmp cx, 0            ; если cx = 0
+    je print_hex_dx_done ; то вывод закончен
 
     mov bx, dx
-    and bx, 0xf          ; get the last 4 bits of dx
-    shr dx, 4            ; delete the last 4 bits of dx
+    and bx, 0xf          ; извлечение последних 4 бит dx
+    shr dx, 4            ; удаление последних 4 бит dx
 
-    cmp bx, 0xa          ; check if the last 4 bits are a letter or a number
-    jl number            ; jmp to the number func if a number
-    jmp letter           ; otherwise jmp to the letter func
+                            
+    cmp bx, 0xa          ; проверяем, являются последние 4 бит буквой или цифрой
+    jl number            ; прыгаем в функцию вывода цифры
+    jmp letter           ; иначе в фукцию вывода буквы
 
 number:
-    add bx, 48           ; add 48 to make the bits a correct ASCII code for the current number
-    mov [si], bx         ; insert to the current place of HEX_OUT the ASCII code
+    add bx, 48           ; добавляем 48 чтобы сделать цифру корректным ASCII кодом
+    mov [si], bx         ; помещаем цифру по указателю si
 
-    dec cx               ; decrement the counter
-    inc si               ; decrement the pointer
-    jmp print_letter     ; and loop again
+    dec cx
+    inc si
+    jmp print_letter     ; перезапускаем цикл
 
 letter:
-    add bx, 87           ; add 87 to make the bits a correct ASCII code for the current letter
-    mov [si], bx         ; insert to the current place of HEX_OUT the ASCII code
+    add bx, 87           ; добавляем 87, чтобы сделать букву корректным ASCII кодом
+    mov [si], bx         ; помещаем цифру по указателю si
 
-    dec cx               ; decrement the counter
-    inc si               ; decrement the pointer
-    jmp print_letter     ; and loop again
+    dec cx
+    inc si
+    jmp print_letter     ; перезапускаем цикл
 
 print_hex_dx_done:
     mov ah, 0x0e
