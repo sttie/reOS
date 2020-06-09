@@ -35,7 +35,6 @@ char* strcpy(char* destptr, char* srcptr)
         *destptr = *srcptr;
         srcptr++;
     }
-    // CHE BLYAT
     *destptr = *srcptr;
 
     return destptr;
