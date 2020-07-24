@@ -76,7 +76,7 @@ void printf(char* format, ...)
 
 void printint(int num)
 {
-	char buf[6] = {0};
+    char buf[11] = {0};
     itoa(num, buf);
     printf("%s", buf);
 }
