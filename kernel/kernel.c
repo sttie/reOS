@@ -1,4 +1,3 @@
-#include "../include/command_line.h"
 #include "../include/kapi.h"
 #include "../include/string.h"
 #include "../include/vgamode.h"
