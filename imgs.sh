@@ -11,7 +11,6 @@ nasm -g -f elf32 -F dwarf -o interrupts_calls.o asm/interrupts_calls.asm
 # ============================= C =====================================
 gcc -g -m32 -c -ffreestanding kernel/kernel.c
 gcc -g -m32 -c -ffreestanding c_src/kapi.c
-gcc -g -m32 -c -ffreestanding c_src/mstdlib.c
 gcc -g -m32 -c -ffreestanding c_src/string.c
 gcc -g -m32 -c -ffreestanding c_src/math.c
 gcc -g -m32 -c -ffreestanding interrupts/set_interrupts.c
@@ -21,7 +20,7 @@ gcc -g -m32 -c -ffreestanding drivers/vgamode.c
 # =====================================================================
 
 # ============================= LINK ==================================
-ld -r -m elf_i386 kernel.o kapi.o vgamode.o mstdlib.o interrupts_calls.o exception_handlers.o set_interrupts.o string.o math.o standart_keyboard.o -o main.o
+ld -r -m elf_i386 kernel.o kapi.o vgamode.o interrupts_calls.o exception_handlers.o set_interrupts.o string.o math.o standart_keyboard.o -o main.o
 ld -melf_i386 -Tlinker.ld -nostdlib --nmagic -o main.elf main.o
 
 objcopy -O binary main.elf main.bin
@@ -39,7 +38,6 @@ echo "Size of the kernel is $size bytes, $kbsize kilobytes"
 
 rm -rf kernel.o
 rm -rf kapi.o
-rm -rf mstdlib.o
 rm -rf string.o
 rm -rf math.o
 rm -rf standart_keyboard.o
