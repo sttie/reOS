@@ -84,14 +84,22 @@ void printint(int num)
 
 void putc(char ch)
 {
-	if (ch == '\n')
+	if (ch == '\n') {
 		location -= location % 160 - 160;
+    }
 
-	else if (ch == '\t')
+	else if (ch == '\t') {
 		location += 8;
+    }
 
-	else if (ch == '\r')
+	else if (ch == '\r') {
 		location = location / 160 + location + 160;
+    }
+
+    else if (ch == '\b') {
+        location -= 2;
+        VGA_VIDEOBUFFER[location] = '\0';
+    }
 
 	else
 	{

@@ -34,7 +34,7 @@ void IDT_init()
     // ICW4 - env info
     outb(0x21, 0b00000011);
     outb(0xA1, 0b00000011);
-    // INIT FINISHED!!
+    // Init is finished here
 
     // отключаем все линии IRQ кроме IRQ0 (IRQ1?)!!!
     outb(0x21, 0b11111001);

@@ -12,6 +12,15 @@ void enableCursor()
 }
 
 
+void shutdownPC() {
+	outw(0xB004, 0x2000);
+}
+
+void rebootPC() {
+	
+}
+
+
 /* 8-bit */
 void outb(uint16_t port, uint8_t value)
 {

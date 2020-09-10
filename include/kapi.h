@@ -7,6 +7,9 @@
 void disableCursor();
 void enableCursor();
 
+void shutdownPC();
+void rebootPC();
+
 /* 8-bit */
 void outb(uint16_t port, uint8_t value);
 uint8_t inb(uint16_t port);

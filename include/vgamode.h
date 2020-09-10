@@ -6,6 +6,7 @@ unsigned int location;
 unsigned char VGAcolor;
 
 void initOutput();
+void changeColor(unsigned char newcolor);
 void printf(char* format, ...);
 void printint(int num);
 void putc(char ch);
