@@ -14,8 +14,6 @@ void debugHandler()
 	register int r_ecx asm("ecx");
 	register int r_esp asm("esp");
 
-	char buff[15] = {0};
-
 	/* TODO: print stack frame */
 	printf("DEBUG INFO:\n"
 		   "\tEAX=%x\n"

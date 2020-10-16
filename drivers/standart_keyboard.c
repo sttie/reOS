@@ -3,6 +3,13 @@
 #include "../include/kapi.h"
 #include "../include/keymap.h"
 
+
+void initKeyboardHandler() {
+	keyboard_current = 0;
+	keyboard_ready = 0;
+	last_input_size = 0;
+}
+
 void keyboardHandler()
 {
 	char letter;
@@ -12,17 +19,28 @@ void keyboardHandler()
 
 	letter = kmap[letter];
 	if (letter == '\n') {
+		keyboard_buffer[keyboard_current] = letter;
+		last_input_size = keyboard_current;
 		keyboard_ready = 1;
-		putc(letter);
 	}
 	else if (letter == '\b' && keyboard_current > 0) {
 		keyboard_current--;
 		keyboard_buffer[keyboard_current] = '\0';
-		putc(letter);
 	}
 	else if (letter != '\b' && keyboard_current < 256) {
-		keyboard_buffer[keyboard_current] = letter;
-		putc(letter);
-		keyboard_current++;
+		keyboard_buffer[keyboard_current++] = letter;
 	}
+	
+	putc(letter);
+}
+
+void clearKeyboardBuffer() {
+	keyboard_current = 0;
+	keyboard_ready = 0;
+	keyboard_buffer[0] = '\0';
+}
+
+// почему-то при вызове этой функции в другом файле она иногда возвращает бред
+int isKeyboardReady() {
+	return keyboard_ready;
 }

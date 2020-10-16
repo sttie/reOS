@@ -2,6 +2,7 @@
 #include "../include/math.h"
 #include "../include/vgamode.h"
 
+
 /* compares two strings, returns 1 if equal */
 int strcmp(char* first, char* second)
 {
@@ -18,44 +19,65 @@ int strcmp(char* first, char* second)
 }
 
 /* returns length of the str */
-int strlen(char* str)
-{
+int strlen(char* str) {
 	int size = 0;
 
 	while (str[size])
-		size++;
+		++size;
 
 	return size;
 }
 
 /* copy strings */
-char* strcpy(char* destptr, char* srcptr)
-{
+char* strcpy(char* destptr, char* srcptr) {
     while (*srcptr) {
         *destptr = *srcptr;
-        srcptr++;
+        ++srcptr;
+        ++destptr;
     }
     *destptr = *srcptr;
 
     return destptr;
 }
 
-/* concatinating strings */
-char* strcat(char* destptr, char* srcptr)
-{
-	strcpy(destptr + strlen(destptr), srcptr);
+
+char* strncpy(char* destptr, char* srcptr, int n) {
+    int i = 0;
+    while (*srcptr && i < n) {
+        *destptr = *srcptr;
+        ++srcptr;
+        ++destptr;
+        ++i;
+    }
+    *destptr = *srcptr;
 
     return destptr;
 }
 
-/* converts char* to int */
-int atoi(char* str)
-{
-	// 1234
+
+/* concatinating strings */
+char* strcat(char* destptr, char* srcptr) {
+	strcpy(destptr + strlen(destptr), srcptr);
+    return destptr;
+}
+
+char* strtok(char* str, char delimeter) {
+    int i = 0;
+    for (; i < strlen(str); i++) {
+        if (str[i] == delimeter) {
+            return str + i + 1;
+        }
+    }
+
+    // NULL?
+    return str + i;
+}
+
+/* converts char* to decimal int */
+int atoi(char* str) {
 	int res = 0, length = strlen(str) - 1;
 
-	while (length >= 0)
-	{
+	while (length >= 0) {
 		res += (str[length] - '0') * binpow(10, length);
 		length--;
 	}
@@ -64,8 +86,7 @@ int atoi(char* str)
 }
 
 /* reverses the buffer */
-void reverse(char* buffer)
-{
+void reverse(char* buffer) {
     char c;
     
     for (int i = 0, j = strlen(buffer) - 1; i < j; i++, j--) {
@@ -76,8 +97,7 @@ void reverse(char* buffer)
 }
 
 /* converts int to char* */
-void itoa(int num, char* buffer)
-{
+void itoa(int num, char* buffer) {
 	int i, sign;
 
     if ((sign = num) < 0) {
@@ -97,8 +117,7 @@ void itoa(int num, char* buffer)
 }
 
 
-void toHex(int num, char* newhex)
-{
+void toHex(int num, char* newhex) {
     int index = 0;
     char hexses[17] = "0123456789abcdef";
     while (num > 0)
@@ -115,7 +134,6 @@ void toHex(int num, char* newhex)
 
 
 /*  */
-int checkbit(int c, unsigned char bitn)
-{
+int checkbit(int c, unsigned char bitn) {
     return (c >> bitn) & 1;
 }

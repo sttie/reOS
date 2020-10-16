@@ -29,7 +29,7 @@ void outb(uint16_t port, uint8_t value)
 
 uint8_t inb(uint16_t port)
 {
-	unsigned char value;
+	uint8_t value;
 	__asm__ __volatile__ ("inb %1, %0" : "=a"(value) : "Nd"(port));
     
 	return value;
@@ -43,7 +43,7 @@ void outw(uint16_t port, uint16_t value)
 
 uint16_t inw(uint16_t port)
 {
-	unsigned short value;
+	uint16_t value;
 	__asm__ __volatile__ ("inw %1, %0" : "=a"(value) : "Nd"(port));
 	
 	return value;
@@ -57,14 +57,14 @@ void outdw(uint16_t port, uint32_t value)
 
 uint32_t indw(uint16_t port)
 {
-	unsigned int value;
+	uint32_t value;
 	__asm__ __volatile__ ("inl %1, %0" : "=a"(value) : "Nd"(port));
 	
 	return value;
 }
 
 
-// ????????????????????
+// Debug exception
 void debugInfo()
 {
 	asm("int $0x1");

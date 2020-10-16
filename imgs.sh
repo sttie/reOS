@@ -16,7 +16,12 @@ gcc -g -m32 -c -ffreestanding drivers/*.c
 # =====================================================================
 
 # ============================= LINK ==================================
-ld -r -m elf_i386 kernel.o kapi.o vgamode.o interrupts_calls.o exception_handlers.o set_interrupts.o string.o math.o standart_keyboard.o process_input.o -o main.o
+ld -r -m elf_i386 kernel.o kapi.o vgamode.o interrupts_calls.o \
+                  set_interrupts.o string.o math.o \
+                  standart_keyboard.o exception_handlers.o \
+                  proccess_input.o \
+                  -o main.o
+
 ld -melf_i386 -Tlinker.ld -nostdlib --nmagic -o main.elf main.o
 
 objcopy -O binary main.elf main.bin

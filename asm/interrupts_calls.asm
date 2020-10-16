@@ -44,6 +44,7 @@ global SIMDFloatingPointCaller
 extern virtualizationException
 global virtualizationCaller
 
+; EXCEPTIONS ==========================
 
 zeroDivisionCaller:
 	call zeroDivisionHandler

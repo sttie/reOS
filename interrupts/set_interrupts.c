@@ -1,5 +1,6 @@
 #include "../include/set_interrupts.h"
 
+
 void init_handler(uint8_t type, uint8_t vector, unsigned long handler_address)
 {
     IDT[0x20 * type + vector].offset_lower = handler_address & 0xffff;
@@ -12,10 +13,9 @@ void init_handler(uint8_t type, uint8_t vector, unsigned long handler_address)
 void IDT_init()
 {
 	/*
-                PIC1   PIC2
-    Commands    0x20   0xA0
-    Data        0x21   0xA1
-
+    *           PIC1   PIC2
+    * Commands  0x20   0xA0
+    * Data      0x21   0xA1
     */
 
     // ICW1 - init

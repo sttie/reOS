@@ -4,7 +4,7 @@
 #include "../include/set_interrupts.h"
 #include "../include/standart_keyboard.h"
 #include "../include/exception_handlers.h"
-#include "../include/process_input.h"
+#include "../include/proccess_input.h"
 
 #define EXCEPTIONOFFSET 0
 #define INTERRUPTOFFSET 1
@@ -12,34 +12,25 @@
 void initExceptions();
 void initInterrupts();
 
+
 void kmain() {
     /* init output */
     initOutput();
     disableCursor();
 
     /* init interrupts */
+    initKeyboardHandler();
     initInterrupts();
     initExceptions();
     IDT_init();
 
-    printf("> ");
-	for (;;) {
-        if (keyboard_ready) {
-            checkInput(keyboard_buffer);
-            printf("> ");
-            keyboard_buffer[0] = '\0';
-		    keyboard_current = 0;
-            keyboard_ready = 0;
-        }
-    }
+    startCommandLine();
 }
 
 
 void initInterrupts()
 {
     init_handler(INTERRUPTOFFSET, 1, (unsigned long) keyboard_handler_caller);
-    keyboard_ready = 0;
-    keyboard_current = 0;
 }
 
 

@@ -4,12 +4,12 @@
 void initOutput()
 {
 	VGA_VIDEOBUFFER = (char*) 0xb8000;
-	location = 0;
+	VGALocation = 0;
 	VGAcolor = 0x7;
 }
 
 
-void changeColor(unsigned char newcolor)
+void VGAChangeColor(unsigned char newcolor)
 {
 	VGAcolor = newcolor;
 }
@@ -85,26 +85,29 @@ void printint(int num)
 void putc(char ch)
 {
 	if (ch == '\n') {
-		location -= location % 160 - 160;
+		VGALocation -= VGALocation % 160 - 160;
     }
 
 	else if (ch == '\t') {
-		location += 8;
+		VGALocation += 8;
     }
 
 	else if (ch == '\r') {
-		location = location / 160 + location + 160;
+		VGALocation = VGALocation / 160 + VGALocation + 160;
     }
 
     else if (ch == '\b') {
-        location -= 2;
-        VGA_VIDEOBUFFER[location] = '\0';
+        if (VGALocation >= 2) {
+            VGALocation -= 2;
+            VGA_VIDEOBUFFER[VGALocation] = '\0';
+            VGA_VIDEOBUFFER[VGALocation+1] = VGAcolor;
+        }
     }
 
 	else
 	{
-		VGA_VIDEOBUFFER[location] = ch;
-		VGA_VIDEOBUFFER[location + 1] = VGAcolor;
-		location += 2;
+		VGA_VIDEOBUFFER[VGALocation] = ch;
+		VGA_VIDEOBUFFER[VGALocation + 1] = VGAcolor;
+		VGALocation += 2;
 	}
 }
